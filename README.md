@@ -160,16 +160,13 @@ Choose an algorithm: 4
 ## 📸 Demo
 
 <p align="center">
-  <img src="assets/sorting-algorithms-comparison.gif"
-       alt="Sorting Algorithms Comparison"
-       width="100%">
+  <img src="assets/sorting_comparison.gif" alt="Sorting Algorithms Comparison" width="90%">
 </p>
 
 <p align="center">
   <em>Visualization of all 8 implemented sorting algorithms.</em>
 </p>
 
----
 
 # 🧠 Concepts Covered
 
