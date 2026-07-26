@@ -309,21 +309,50 @@ void radix_sort(int arr[], int size) {
 // ---------- Main ----------
 
 int main() {
-    int arr[MAX_SIZE];
-    int size, choice;
-
+     int arr[MAX_SIZE];
+    int size, choice, input_mode;
+ 
     printf("=== Sorting Algorithm Visualizer ===\n");
     printf("Enter number of elements (max %d): ", MAX_SIZE);
     scanf("%d", &size);
-
+ 
     if (size < 1 || size > MAX_SIZE) {
         printf("Invalid size.\n");
         return 1;
     }
-
-    printf("Enter %d elements:\n", size);
-    for (int i = 0; i < size; i++) {
-        scanf("%d", &arr[i]);
+ 
+    printf("\n1. Enter elements manually\n");
+    printf("2. Generate random elements (you choose min/max range)\n");
+    printf("Choose input method: ");
+    scanf("%d", &input_mode);
+ 
+    if (input_mode == 1) {
+        printf("Enter %d elements:\n", size);
+        for (int i = 0; i < size; i++) {
+            scanf("%d", &arr[i]);
+        }
+    } else if (input_mode == 2) {
+        int min_val, max_val;
+        printf("Enter minimum value: ");
+        scanf("%d", &min_val);
+        printf("Enter maximum value: ");
+        scanf("%d", &max_val);
+ 
+        if (min_val > max_val) {
+            printf("Minimum cannot be greater than maximum.\n");
+            return 1;
+        }
+ 
+        srand((unsigned int) time(NULL));
+        for (int i = 0; i < size; i++) {
+            arr[i] = min_val + rand() % (max_val - min_val + 1);
+        }
+ 
+        printf("Generated array: ");
+        print_array(arr, size, -1, -1);
+    } else {
+        printf("Invalid input method.\n");
+        return 1;
     }
 
     printf("\n1. Bubble Sort\n");
