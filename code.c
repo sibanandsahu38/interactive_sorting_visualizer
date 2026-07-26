@@ -13,7 +13,7 @@
  *   8. Radix Sort      (non-negative integers only)
  */
 #include <stdio.h>
-#define MAX_SIZE 20
+#define MAX_SIZE 200
 //------------Print Array--------------------
 void print_array(int arr[], int size, int hi1, int hi2) {
     for (int i = 0; i < size; i++) {
