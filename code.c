@@ -12,7 +12,9 @@
  *   7. Counting Sort   (non-negative integers only)
  *   8. Radix Sort      (non-negative integers only)
  */
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
 #define MAX_SIZE 200
 //------------Print Array--------------------
 void print_array(int arr[], int size, int hi1, int hi2) {
