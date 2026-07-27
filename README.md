@@ -2,33 +2,55 @@
 
 # 📊 Sorting Algorithm Visualizer (C)
 
-### Learn Data Structures & Algorithms Through Step-by-Step Visualization
+### Learn Data Structures & Algorithms Through Interactive Step-by-Step Visualization
 
-A console-based application written in **C** that demonstrates how **8 classical sorting algorithms** work by displaying every important operation such as comparisons, swaps, merges, and partitions.
+A console-based application written in **C** that demonstrates the working of **8 classical sorting algorithms** through step-by-step visualization of comparisons, swaps, merges, partitions, and heap operations. The project also includes a **Random Array Generator** for quick algorithm testing.
 
 ![Language](https://img.shields.io/badge/Language-C-blue?style=for-the-badge)
 ![Algorithms](https://img.shields.io/badge/Algorithms-8-success?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-Console-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
 
 </div>
+
+---
+
+## 📸 Demo
+
+<p align="center">
+  <img src="assets/sorting_comparison.gif" alt="Sorting Algorithms Comparison" width="90%">
+</p>
+
+<p align="center">
+  <em>Interactive visualization of all implemented sorting algorithms.</em>
+</p>
+
+---
+
+# 🎯 Project Objective
+
+The **Sorting Algorithm Visualizer** is an educational console-based application developed in **C** to help students understand how classical sorting algorithms work internally. Instead of only displaying the final sorted array, the program visualizes every significant operation, making it easier to analyze algorithm behavior, efficiency, and implementation techniques.
 
 ---
 
 # 📚 Table of Contents
 
 - ✨ Features
+- 🛠️ Tech Stack
+- 🎲 Input Options
 - 📖 Algorithms Included
 - 🚀 Project Highlights
 - 📊 Time Complexity
 - 🛠️ Project Structure
-- 💻 Getting Started
+- 🚀 Getting Started
 - ▶️ Sample Execution
-- 📸 Demo
 - 🧠 Concepts Covered
-- 🎯 Learning Outcomes
-- 🛣️ Future Roadmap
+- 🎓 Educational Value
+- ⚠️ Limitations
+- 🔮 Possible Enhancements
+- 🤝 Contributing
 - 📄 License
 - 👨‍💻 Author
 
@@ -36,14 +58,36 @@ A console-based application written in **C** that demonstrates how **8 classical
 
 # ✨ Features
 
-- 📌 Visualizes **8 popular sorting algorithms**
-- 🔄 Displays every comparison, swap, merge, and partition
+- 📌 Visualizes **8 classical sorting algorithms**
+- 🎲 Built-in **Random Array Generator**
+- 🔄 Step-by-step visualization of comparisons and swaps
 - 📋 Interactive menu-driven interface
-- 🎯 Highlights active elements using brackets `[ ]`
-- ⚡ Bubble Sort includes **early-exit optimization**
-- 📚 Excellent for beginners learning DSA
-- 🧩 Modular and easy-to-understand C code
-- 💡 Interview preparation friendly
+- 🎯 Highlights active elements during sorting
+- ⚡ Bubble Sort with early-exit optimization
+- 📚 Beginner-friendly DSA learning tool
+- 🧩 Modular and well-structured C code
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Language | C |
+| Compiler | GCC |
+| Platform | Console |
+| Concepts | Data Structures & Algorithms |
+
+---
+
+# 🎲 Input Options
+
+Users can choose between:
+
+- ✍️ Manual array input
+- 🎲 Randomly generated array
+
+The random array generator allows quick testing without manually entering values.
 
 ---
 
@@ -95,40 +139,46 @@ A console-based application written in **C** that demonstrates how **8 classical
 
 # 🛠️ Project Structure
 
-```
-
-Sorting-Algorithm-Visualizer
+```text
+interactive_sorting_visualizer
 │
 ├── sorting_visualizer.c
 ├── README.md
 ├── LICENSE
-│
 └── assets
-├── demo.gif
-└── output.png
-
-````
+    ├── sorting_comparison.gif
+    └── output.png
+```
 
 ---
 
-# 💻 Getting Started
+# 🚀 Getting Started
 
-## Requirements
+## Clone Repository
 
-- GCC Compiler
-- C99 or later
-- Windows / Linux / macOS
+```bash
+git clone https://github.com/sibanandsahu38/interactive_sorting_visualizer.git
+cd interactive_sorting_visualizer
+```
 
-## Compilation
+## Compile
 
 ```bash
 gcc sorting_visualizer.c -o sorting_visualizer
-````
+```
 
 ## Run
 
+### Linux / macOS
+
 ```bash
 ./sorting_visualizer
+```
+
+### Windows
+
+```bash
+sorting_visualizer.exe
 ```
 
 ---
@@ -136,79 +186,79 @@ gcc sorting_visualizer.c -o sorting_visualizer
 # ▶️ Sample Execution
 
 ```text
-=== Sorting Algorithm Visualizer ===
+Choose Input Method
 
-Enter number of elements (max 20): 5
+1. Manual Input
+2. Random Array
 
-Enter 5 elements:
-5 2 4 1 3
+Choice: 2
 
+Generated Array:
+48 12 95 37 61
+
+Choose Sorting Algorithm:
 1. Bubble Sort
 2. Insertion Sort
-3. Selection Sort
-4. Quick Sort
-5. Merge Sort
-6. Heap Sort
-7. Counting Sort
-8. Radix Sort
-
-Choose an algorithm: 4
+...
 ```
 
 ---
 
-## 📸 Demo
-
-<p align="center">
-  <img src="assets/sorting_comparison.gif" alt="Sorting Algorithms Comparison" width="90%">
-</p>
-
-<p align="center">
-  <em>Visualization of all 8 implemented sorting algorithms.</em>
-</p>
-
-
 # 🧠 Concepts Covered
 
-* Arrays
-* Functions
-* Recursion
-* Divide and Conquer
-* Binary Heap
-* Heapify Operation
-* Counting Technique
-* Stable vs Unstable Sorting
-* Time Complexity Analysis
-* Space Complexity
-* Modular Programming
+- Arrays
+- Functions
+- Recursion
+- Divide and Conquer
+- Binary Heap
+- Heapify
+- Counting Technique
+- Random Number Generation
+- Stable vs Unstable Sorting
+- Time Complexity Analysis
+- Space Complexity
+- Modular Programming
 
 ---
 
-# 🎯 Learning Outcomes
+# 🎓 Educational Value
 
-This project helped me understand:
+This project demonstrates:
 
-* ✔ Internal working of sorting algorithms
-* ✔ Comparison-based vs non-comparison sorting
-* ✔ Divide-and-conquer strategy
-* ✔ Recursion in practical applications
-* ✔ Heap data structure
-* ✔ Algorithm visualization techniques
-* ✔ Performance trade-offs between sorting methods
+- Classical Sorting Algorithms
+- Divide-and-Conquer Strategy
+- Heap Operations
+- Recursion
+- Algorithm Visualization
+- Random Test Case Generation
+- Time & Space Complexity Analysis
 
 ---
 
-# 🛣️ Future Roadmap
+# ⚠️ Limitations
 
-* [ ] Add Shell Sort
-* [ ] Add Bucket Sort
-* [ ] Add Tim Sort
-* [ ] Support negative integers in Counting Sort
-* [ ] Random array generator
-* [ ] Performance comparison graph
-* [ ] ANSI color output
-* [ ] Adjustable animation speed
-* [ ] Export sorting statistics
+- Maximum array size: 200 elements
+- Counting Sort supports only non-negative integers
+- Radix Sort supports only non-negative integers
+- Console-based visualization
+
+---
+
+# 🔮 Possible Enhancements
+
+- Support negative integers in Counting Sort
+- Add performance comparison graph
+- Enhance visualization with ANSI color output
+- Adjustable animation speed
+- Export sorting statistics (comparisons, swaps, execution time)
+
+---
+
+# 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+If you'd like to improve this project, feel free to fork the repository and submit a pull request.
 
 ---
 
@@ -224,16 +274,18 @@ This project is licensed under the **MIT License**.
 
 🎓 Computer Science (AI & ML)
 
-💻 Passionate about DSA, Competitive Programming, and Software Development.
+💻 Passionate about Data Structures, Competitive Programming, and Software Development.
 
-⭐ If you found this project helpful, consider giving it a **Star** on GitHub!
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+It motivates me to build more educational and open-source projects.
 
 ---
 
 <div align="center">
 
 ### 🚀 Happy Coding!
-
-Made with ❤️ in C
-
-</div>
