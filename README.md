@@ -11,7 +11,15 @@ A console-based application written in **C** that demonstrates the working of **
 ![Platform](https://img.shields.io/badge/Platform-Console-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
+
+![Forks](https://img.shields.io/github/forks/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
+![Repo Size](https://img.shields.io/github/repo-size/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
+![Top Language](https://img.shields.io/github/languages/top/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
+![Code Size](https://img.shields.io/github/languages/code-size/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
+
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=sibanandsahu38.interactive_sorting_visualizer)
 
 </div>
 
