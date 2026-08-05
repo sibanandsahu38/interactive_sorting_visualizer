@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm Visualizer Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <span>⚡</span>
+                </div>
+                <div>
+                    <h1>Sorting Visualizer Studio</h1>
+                    <p>Interactive Step-by-Step Algorithm & Data Structure Suite</p>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <!-- Visitor Badge -->
+                <div class="visitor-badge" id="visitorBadge" title="Total Page Visits">
+                    <span class="visitor-icon">👁️</span>
+                    <span id="visitorCount">Visits: ...</span>
+                </div>
+
+                <!-- Mode Select -->
+                <div class="preset-dropdown-wrap">
+                    <select id="arrayTypeSelect" class="select-input">
+                        <option value="random">🎲 Random Array</option>
+                        <option value="reversed">📉 Reversed Array</option>
+                        <option value="nearly">📈 Nearly Sorted Array</option>
+                        <option value="few_unique">📊 Few Unique Values</option>
+                        <option value="manual">✍️ Manual Custom Input</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace-grid">
+            <!-- Sidebar: Algorithms Menu -->
+            <aside class="sidebar-card glass-panel">
+                <h2>Algorithms</h2>
+
+                <div class="op-category">Quadratic O(N²)</div>
+                <div class="op-group">
+                    <button class="op-btn active" data-algo="1">
+                        <span class="op-emoji">🫧</span>
+                        <div class="op-info">
+                            <span class="op-title">Bubble Sort</span>
+                            <span class="op-complexity">O(n²) • Stable</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="2">
+                        <span class="op-emoji">📥</span>
+                        <div class="op-info">
+                            <span class="op-title">Insertion Sort</span>
+                            <span class="op-complexity">O(n²) • Adaptive</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="3">
+                        <span class="op-emoji">🎯</span>
+                        <div class="op-info">
+                            <span class="op-title">Selection Sort</span>
+                            <span class="op-complexity">O(n²) • In-Place</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="op-category">Logarithmic O(N log N)</div>
+                <div class="op-group">
+                    <button class="op-btn" data-algo="4">
+                        <span class="op-emoji">⚡</span>
+                        <div class="op-info">
+                            <span class="op-title">Quick Sort</span>
+                            <span class="op-complexity">O(n log n) • Divide</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="5">
+                        <span class="op-emoji">🔀</span>
+                        <div class="op-info">
+                            <span class="op-title">Merge Sort</span>
+                            <span class="op-complexity">O(n log n) • Stable</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="6">
+                        <span class="op-emoji">🌲</span>
+                        <div class="op-info">
+                            <span class="op-title">Heap Sort</span>
+                            <span class="op-complexity">O(n log n) • Binary Tree</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="op-category">Linear O(N + K)</div>
+                <div class="op-group">
+                    <button class="op-btn" data-algo="7">
+                        <span class="op-emoji">📊</span>
+                        <div class="op-info">
+                            <span class="op-title">Counting Sort</span>
+                            <span class="op-complexity">O(n + k) • Non-negative</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="8">
+                        <span class="op-emoji">🔢</span>
+                        <div class="op-info">
+                            <span class="op-title">Radix Sort</span>
+                            <span class="op-complexity">O(nk) • Digit Place</span>
+                        </div>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Interactive Visual Stage -->
+            <section class="main-content">
+                <!-- Control Toolbar Card -->
+                <div class="card glass-panel toolbar-card">
+                    <div class="toolbar-left">
+                        <button class="btn btn-primary" id="playBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Play
+                        </button>
+                        <button class="btn btn-secondary" id="pauseBtn" disabled>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                            Pause
+                        </button>
+                        <button class="btn btn-secondary" id="stepBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                            Step
+                        </button>
+                        <button class="btn btn-secondary" id="resetBtn">🔄 Reset</button>
+                        <button class="btn btn-secondary" id="generateBtn">🎲 Randomize</button>
+                    </div>
+
+                    <!-- Sliders & Speed -->
+                    <div class="toolbar-right">
+                        <div class="slider-group">
+                            <label>Size: <span id="sizeValue">30</span></label>
+                            <input type="range" id="sizeSlider" min="5" max="100" value="30">
+                        </div>
+                        <div class="slider-group">
+                            <label>Speed: <span id="speedValue">50ms</span></label>
+                            <input type="range" id="speedSlider" min="5" max="500" value="50" dir="rtl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Input Modal / Row (Hidden by default) -->
+                <div class="card glass-panel" id="manualInputRow" style="display:none;">
+                    <div class="param-group" style="width:100%;">
+                        <label>Enter Array Elements (comma or space separated):</label>
+                        <input type="text" id="manualInputText" placeholder="e.g. 45, 12, 89, 3, 27, 60, 15" style="width:100%;">
+                        <button class="btn-sm btn-accent" id="applyManualBtn" style="margin-top:0.5rem;">Apply Custom Array</button>
+                    </div>
+                </div>
+
+                <!-- Real-time Metrics Dashboard Cards -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <span class="metric-label">Comparisons</span>
+                        <span class="metric-val" id="metricComparisons">0</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Swaps / Writes</span>
+                        <span class="metric-val" id="metricSwaps">0</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Progress</span>
+                        <span class="metric-val" id="metricProgress">0%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Time Complexity</span>
+                        <span class="metric-val" id="metricComplexity">O(n²)</span>
+                    </div>
+                </div>
+
+                <!-- Stage: Bars Visualization Canvas -->
+                <div class="visualizer-stage-card glass-panel">
+                    <div class="stage-header">
+                        <h3 id="currentAlgoTitle">🫧 Bubble Sort</h3>
+                        <div class="legend-bar">
+                            <span class="leg-item"><span class="leg-box leg-default"></span> Unsorted</span>
+                            <span class="leg-item"><span class="leg-box leg-compare"></span> Comparing</span>
+                            <span class="leg-item"><span class="leg-box leg-swap"></span> Swapping</span>
+                            <span class="leg-item"><span class="leg-box leg-pivot"></span> Pivot / Key</span>
+                            <span class="leg-item"><span class="leg-box leg-sorted"></span> Sorted</span>
+                        </div>
+                    </div>
+
+                    <div class="bars-container" id="barsContainer">
+                        <!-- Rendered Array Bars injected here -->
+                    </div>
+                </div>
+
+                <!-- Step Terminal Console Log -->
+                <div class="card glass-panel console-card">
+                    <div class="console-header">
+                        <h4>Terminal Step Execution Log</h4>
+                        <button class="btn-sm btn-ghost" id="clearConsoleBtn">Clear Console</button>
+                    </div>
+                    <div class="console-body" id="consoleBody">
+                        <div class="console-line">Ready to initialize sorting algorithm.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="sort_engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
