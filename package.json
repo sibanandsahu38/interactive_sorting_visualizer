@@ -1,0 +1,20 @@
+{
+  "name": "interactive-sorting-visualizer",
+  "version": "1.0.0",
+  "description": "Interactive Step-by-Step Sorting Algorithm Visualizer",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sorting",
+    "algorithms",
+    "visualizer",
+    "data-structures"
+  ],
+  "author": "Sibanand Sahu",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
