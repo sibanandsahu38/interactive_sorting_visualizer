@@ -20,6 +20,7 @@ A console-based application written in **C** that demonstrates the working of **
 ![Code Size](https://img.shields.io/github/languages/code-size/sibanandsahu38/interactive_sorting_visualizer?style=for-the-badge)
 
 ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=sibanandsahu38.interactive_sorting_visualizer)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Website-7C3AED?style=for-the-badge)](https://interactive-sorting-visualizer-zeta.vercel.app/)
 
 </div>
 
