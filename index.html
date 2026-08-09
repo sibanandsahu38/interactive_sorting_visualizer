@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorting Algorithm Visualizer Studio</title>
+    <title>3D Sorting Algorithm Visualizer Studio</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js & OrbitControls for 3D Isometric Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,15 +19,20 @@
         <header class="app-header">
             <div class="logo-area">
                 <div class="logo-icon">
-                    <span>⚡</span>
+                    <span>🧊</span>
                 </div>
                 <div>
-                    <h1>Sorting Visualizer Studio</h1>
-                    <p>Interactive Step-by-Step Algorithm & Data Structure Suite</p>
+                    <h1>3D Sorting Visualizer Studio</h1>
+                    <p>AlgoMaster-Style 3D Isometric & 2D Algorithm Animation Suite</p>
                 </div>
             </div>
             
             <div class="header-right">
+                <!-- Sound Toggle -->
+                <button class="btn-sm btn-ghost sound-btn" id="soundToggleBtn" title="Toggle Sound FX">
+                    <span id="soundIcon">🔊</span> Sound: ON
+                </button>
+
                 <!-- Visitor Badge -->
                 <div class="visitor-badge" id="visitorBadge" title="Total Page Visits">
                     <span class="visitor-icon">👁️</span>
@@ -34,7 +42,8 @@
                 <!-- Mode Select -->
                 <div class="preset-dropdown-wrap">
                     <select id="arrayTypeSelect" class="select-input">
-                        <option value="random">🎲 Random Array</option>
+                        <option value="random">🎲 Random Array (8 Elements)</option>
+                        <option value="custom_8">🔥 AlgoMaster 8-Preset [64, 34, 25, 12, 22, 11, 90, 45]</option>
                         <option value="reversed">📉 Reversed Array</option>
                         <option value="nearly">📈 Nearly Sorted Array</option>
                         <option value="few_unique">📊 Few Unique Values</option>
@@ -56,21 +65,21 @@
                         <span class="op-emoji">🫧</span>
                         <div class="op-info">
                             <span class="op-title">Bubble Sort</span>
-                            <span class="op-complexity">O(n²) • Stable</span>
+                            <span class="op-complexity">O(n²) • 3D Arc Swap</span>
                         </div>
                     </button>
                     <button class="op-btn" data-algo="2">
                         <span class="op-emoji">📥</span>
                         <div class="op-info">
                             <span class="op-title">Insertion Sort</span>
-                            <span class="op-complexity">O(n²) • Adaptive</span>
+                            <span class="op-complexity">O(n²) • Shifting</span>
                         </div>
                     </button>
                     <button class="op-btn" data-algo="3">
                         <span class="op-emoji">🎯</span>
                         <div class="op-info">
                             <span class="op-title">Selection Sort</span>
-                            <span class="op-complexity">O(n²) • In-Place</span>
+                            <span class="op-complexity">O(n²) • Min Finder</span>
                         </div>
                     </button>
                 </div>
@@ -81,21 +90,21 @@
                         <span class="op-emoji">⚡</span>
                         <div class="op-info">
                             <span class="op-title">Quick Sort</span>
-                            <span class="op-complexity">O(n log n) • Divide</span>
+                            <span class="op-complexity">O(n log n) • Pivot</span>
                         </div>
                     </button>
                     <button class="op-btn" data-algo="5">
                         <span class="op-emoji">🔀</span>
                         <div class="op-info">
                             <span class="op-title">Merge Sort</span>
-                            <span class="op-complexity">O(n log n) • Stable</span>
+                            <span class="op-complexity">O(n log n) • Divide</span>
                         </div>
                     </button>
                     <button class="op-btn" data-algo="6">
                         <span class="op-emoji">🌲</span>
                         <div class="op-info">
                             <span class="op-title">Heap Sort</span>
-                            <span class="op-complexity">O(n log n) • Binary Tree</span>
+                            <span class="op-complexity">O(n log n) • 3D Heap Tree</span>
                         </div>
                     </button>
                 </div>
@@ -106,7 +115,7 @@
                         <span class="op-emoji">📊</span>
                         <div class="op-info">
                             <span class="op-title">Counting Sort</span>
-                            <span class="op-complexity">O(n + k) • Non-negative</span>
+                            <span class="op-complexity">O(n + k) • Frequency</span>
                         </div>
                     </button>
                     <button class="op-btn" data-algo="8">
@@ -117,6 +126,47 @@
                         </div>
                     </button>
                 </div>
+
+                <!-- Searching Algorithms Category -->
+                <div class="op-category" style="color:var(--accent); margin-top:1.25rem;">🔍 Searching Algorithms</div>
+                <div class="op-group">
+                    <button class="op-btn" data-algo="9">
+                        <span class="op-emoji">🔍</span>
+                        <div class="op-info">
+                            <span class="op-title">Linear Search</span>
+                            <span class="op-complexity">O(n) • Sequential Scan</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="10">
+                        <span class="op-emoji">🎯</span>
+                        <div class="op-info">
+                            <span class="op-title">Binary Search</span>
+                            <span class="op-complexity">O(log n) • Divide & Conquer</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="11">
+                        <span class="op-emoji">🔱</span>
+                        <div class="op-info">
+                            <span class="op-title">Ternary Search</span>
+                            <span class="op-complexity">O(log₃ n) • 3-Way Split</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="12">
+                        <span class="op-emoji">🦘</span>
+                        <div class="op-info">
+                            <span class="op-title">Jump Search</span>
+                            <span class="op-complexity">O(√n) • Block Skipping</span>
+                        </div>
+                    </button>
+                    <button class="op-btn" data-algo="13">
+                        <span class="op-emoji">🚀</span>
+                        <div class="op-info">
+                            <span class="op-title">Exponential Search</span>
+                            <span class="op-complexity">O(log n) • Doubling Range</span>
+                        </div>
+                    </button>
+                </div>
+
             </aside>
 
             <!-- Main Interactive Visual Stage -->
@@ -138,17 +188,30 @@
                         </button>
                         <button class="btn btn-secondary" id="resetBtn">🔄 Reset</button>
                         <button class="btn btn-secondary" id="generateBtn">🎲 Randomize</button>
+
+                        <!-- Target Value Search Control -->
+                        <div class="target-input-group" id="targetInputGroup" style="display:none;">
+                            <label>🎯 Target:</label>
+                            <input type="number" id="targetInputVal" value="25" class="target-input">
+                            <button class="btn-xs" id="targetRandomBtn" title="Pick random target from array">🎲</button>
+                        </div>
                     </div>
 
-                    <!-- Sliders & Speed -->
+                    <!-- View Switcher & Sliders -->
                     <div class="toolbar-right">
+                        <!-- View Switcher -->
+                        <div class="view-toggle-group">
+                            <button class="toggle-btn active" id="view3dBtn">🧊 3D View</button>
+                            <button class="toggle-btn" id="view2dBtn">📊 2D Bars</button>
+                        </div>
+
                         <div class="slider-group">
-                            <label>Size: <span id="sizeValue">30</span></label>
-                            <input type="range" id="sizeSlider" min="5" max="100" value="30">
+                            <label>Size: <span id="sizeValue">8</span></label>
+                            <input type="range" id="sizeSlider" min="5" max="50" value="8">
                         </div>
                         <div class="slider-group">
-                            <label>Speed: <span id="speedValue">50ms</span></label>
-                            <input type="range" id="speedSlider" min="5" max="500" value="50" dir="rtl">
+                            <label>Speed: <span id="speedValue">600ms</span></label>
+                            <input type="range" id="speedSlider" min="50" max="1500" value="600" dir="rtl">
                         </div>
                     </div>
                 </div>
@@ -157,7 +220,7 @@
                 <div class="card glass-panel" id="manualInputRow" style="display:none;">
                     <div class="param-group" style="width:100%;">
                         <label>Enter Array Elements (comma or space separated):</label>
-                        <input type="text" id="manualInputText" placeholder="e.g. 45, 12, 89, 3, 27, 60, 15" style="width:100%;">
+                        <input type="text" id="manualInputText" placeholder="e.g. 64, 34, 25, 12, 22, 11, 90, 45" style="width:100%;">
                         <button class="btn-sm btn-accent" id="applyManualBtn" style="margin-top:0.5rem;">Apply Custom Array</button>
                     </div>
                 </div>
@@ -182,21 +245,62 @@
                     </div>
                 </div>
 
-                <!-- Stage: Bars Visualization Canvas -->
+                <!-- 1. Top: Full-Width 3D Isometric Viewport Stage -->
                 <div class="visualizer-stage-card glass-panel">
                     <div class="stage-header">
-                        <h3 id="currentAlgoTitle">🫧 Bubble Sort</h3>
+                        <div class="stage-title-wrap">
+                            <h3 id="currentAlgoTitle">🫧 Bubble Sort (3D Isometric)</h3>
+                            <div class="camera-presets" id="cameraPresets">
+                                <span style="color:var(--text-muted); font-size:0.78rem;">Camera:</span>
+                                <button class="btn-xs" id="camIsoBtn">Isometric</button>
+                                <button class="btn-xs" id="camFrontBtn">Front</button>
+                                <button class="btn-xs" id="camTopBtn">Top</button>
+                            </div>
+                        </div>
+
                         <div class="legend-bar">
-                            <span class="leg-item"><span class="leg-box leg-default"></span> Unsorted</span>
-                            <span class="leg-item"><span class="leg-box leg-compare"></span> Comparing</span>
-                            <span class="leg-item"><span class="leg-box leg-swap"></span> Swapping</span>
-                            <span class="leg-item"><span class="leg-box leg-pivot"></span> Pivot / Key</span>
+                            <span class="leg-item"><span class="leg-box leg-default"></span> Idle</span>
+                            <span class="leg-item"><span class="leg-box leg-compare"></span> Compare</span>
+                            <span class="leg-item"><span class="leg-box leg-swap"></span> Swap</span>
                             <span class="leg-item"><span class="leg-box leg-sorted"></span> Sorted</span>
                         </div>
                     </div>
 
-                    <div class="bars-container" id="barsContainer">
-                        <!-- Rendered Array Bars injected here -->
+                    <!-- 3D Three.js Viewport Container -->
+                    <div class="stage-viewport-wrapper">
+                        <div id="threeStage" class="three-stage-container">
+                            <div class="three-hint-badge">🖱️ Drag to rotate 3D view | Scroll to zoom</div>
+                        </div>
+
+                        <!-- 2D DOM Bars Fallback -->
+                        <div class="bars-container" id="barsContainer" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Directly Beneath: Algorithm Code & Live Trace Inspector Card -->
+                <div class="card glass-panel code-tracker-card">
+                    <div class="code-tracker-header">
+                        <div class="code-header-left">
+                            <span>📝 C / DSA Algorithm Code & Execution Trace</span>
+                        </div>
+                        <span class="code-badge">Live Trace</span>
+                    </div>
+
+                    <div class="code-tracker-body-grid">
+                        <!-- Left: Code Editor Box with Line-by-Line Highlighter -->
+                        <div class="code-editor-box" id="codeEditorBox">
+                            <!-- Numbered code rows injected dynamically -->
+                        </div>
+
+                        <!-- Right: Live Variable & Condition Inspector -->
+                        <div class="var-inspector" id="varInspector">
+                            <div class="var-inspector-header">🔍 Live Variables & Condition</div>
+                            <div class="var-badges" id="varBadges">
+                                <span class="var-badge">i = -</span>
+                                <span class="var-badge">j = -</span>
+                                <span class="var-badge">Condition: Ready</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -207,7 +311,7 @@
                         <button class="btn-sm btn-ghost" id="clearConsoleBtn">Clear Console</button>
                     </div>
                     <div class="console-body" id="consoleBody">
-                        <div class="console-line">Ready to initialize sorting algorithm.</div>
+                        <div class="console-line highlight">Initialized 3D Sorting Engine. Click Play to start!</div>
                     </div>
                 </div>
             </section>
@@ -217,13 +321,5 @@
     <!-- Scripts -->
     <script src="sort_engine.js"></script>
     <script src="app.js"></script>
-    
-    <!-- Vercel Web Analytics -->
-    <script>
-        window.va = window.va || function () {
-            (window.vaq = window.vaq || []).push(arguments);
-        };
-    </script>
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </body>
 </html>
