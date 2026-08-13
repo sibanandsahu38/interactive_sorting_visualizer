@@ -1,8 +1,7 @@
 /*
- * Sorting Algorithm Visualizer (Text-Based)
- * --------------------------------------------
- * Implements 8 classic sorting algorithms, printing the array state
- * at each meaningful step so you can watch each one work:
+ * Sorting & Searching Algorithm Visualizer (Text-Based)
+ * --------------------------------------------------------
+ * Sorting algorithms (print the array state at each meaningful step):
  *   1. Bubble Sort
  *   2. Insertion Sort
  *   3. Selection Sort
@@ -11,10 +10,18 @@
  *   6. Heap Sort
  *   7. Counting Sort   (non-negative integers only)
  *   8. Radix Sort      (non-negative integers only)
+ *
+ * Searching algorithms (print the search window / step at each check):
+ *   1. Linear Search
+ *   2. Binary Search       (requires sorted array)
+ *   3. Ternary Search      (requires sorted array)
+ *   4. Jump Search         (requires sorted array)
+ *   5. Exponential Search  (requires sorted array)
  */
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<math.h>
 #define MAX_SIZE 200
 //------------Print Array--------------------
 void print_array(int arr[], int size, int hi1, int hi2) {
@@ -49,6 +56,31 @@ int array_min(int arr[], int size) {
     }
     return min;
 }
+
+int is_sorted(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1]) return 0;
+    }
+    return 1;
+}
+
+// Quiet insertion sort used internally to prepare an array for the
+// search algorithms that require sorted input, without printing steps.
+void quiet_sort(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// =====================================================
+// =================  SORTING SECTION  ================
+// =====================================================
 
 // ---------- 1. Bubble Sort ----------
 
@@ -308,26 +340,204 @@ void radix_sort(int arr[], int size) {
     print_array(arr, size, -1, -1);
 }
 
-// ---------- Main ----------
+// =====================================================
+// ================  SEARCHING SECTION  ================
+// =====================================================
+
+// ---------- 1. Linear Search ----------
+// Works on unsorted arrays. Checks each element in order.
+
+int linear_search(int arr[], int size, int target) {
+    printf("\n--- Linear Search (target = %d) ---\n", target);
+    print_array(arr, size, -1, -1);
+
+    for (int i = 0; i < size; i++) {
+        printf("Checking position %d (value %d):\n", i, arr[i]);
+        print_array(arr, size, i, -1);
+        if (arr[i] == target) {
+            printf("Found %d at position %d!\n", target, i);
+            return i;
+        }
+    }
+    printf("%d was not found in the array.\n", target);
+    return -1;
+}
+
+// ---------- 2. Binary Search ----------
+// Requires a sorted array. Repeatedly halves the search window.
+
+int binary_search(int arr[], int size, int target) {
+    printf("\n--- Binary Search (target = %d) ---\n", target);
+    print_array(arr, size, -1, -1);
+
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        printf("Search window [%d..%d], checking middle position %d (value %d):\n",
+               low, high, mid, arr[mid]);
+        print_array(arr, size, mid, -1);
+
+        if (arr[mid] == target) {
+            printf("Found %d at position %d!\n", target, mid);
+            return mid;
+        } else if (arr[mid] < target) {
+            printf("  -> %d < target, searching right half\n", arr[mid]);
+            low = mid + 1;
+        } else {
+            printf("  -> %d > target, searching left half\n", arr[mid]);
+            high = mid - 1;
+        }
+    }
+    printf("%d was not found in the array.\n", target);
+    return -1;
+}
+
+// ---------- 3. Ternary Search ----------
+// Requires a sorted array. Splits the search window into three parts.
+
+int ternary_search(int arr[], int size, int target) {
+    printf("\n--- Ternary Search (target = %d) ---\n", target);
+    print_array(arr, size, -1, -1);
+
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid1 = low + (high - low) / 3;
+        int mid2 = high - (high - low) / 3;
+        printf("Search window [%d..%d], checking positions %d (value %d) and %d (value %d):\n",
+               low, high, mid1, arr[mid1], mid2, arr[mid2]);
+        print_array(arr, size, mid1, mid2);
+
+        if (arr[mid1] == target) {
+            printf("Found %d at position %d!\n", target, mid1);
+            return mid1;
+        }
+        if (arr[mid2] == target) {
+            printf("Found %d at position %d!\n", target, mid2);
+            return mid2;
+        }
+
+        if (target < arr[mid1]) {
+            printf("  -> target < %d, searching first third\n", arr[mid1]);
+            high = mid1 - 1;
+        } else if (target > arr[mid2]) {
+            printf("  -> target > %d, searching last third\n", arr[mid2]);
+            low = mid2 + 1;
+        } else {
+            printf("  -> searching middle third\n");
+            low = mid1 + 1;
+            high = mid2 - 1;
+        }
+    }
+    printf("%d was not found in the array.\n", target);
+    return -1;
+}
+
+// ---------- 4. Jump Search ----------
+// Requires a sorted array. Jumps ahead in fixed-size blocks, then
+// falls back to a linear scan within the block that could contain target.
+
+int jump_search(int arr[], int size, int target) {
+    printf("\n--- Jump Search (target = %d) ---\n", target);
+    print_array(arr, size, -1, -1);
+
+    int step = (int) sqrt((double) size);
+    if (step < 1) step = 1;
+
+    int prev = 0;
+    int curr = step;
+
+    printf("Block size chosen: %d\n", step);
+
+    while (curr < size && arr[curr - 1] < target) {
+        printf("Jumping to position %d (value %d), still less than target:\n",
+               curr - 1, arr[curr - 1]);
+        print_array(arr, size, curr - 1, -1);
+        prev = curr;
+        curr += step;
+    }
+
+    int block_end = (curr < size) ? curr : size;
+    printf("Target may be in block [%d..%d), scanning linearly:\n", prev, block_end);
+
+    for (int i = prev; i < block_end; i++) {
+        printf("Checking position %d (value %d):\n", i, arr[i]);
+        print_array(arr, size, i, -1);
+        if (arr[i] == target) {
+            printf("Found %d at position %d!\n", target, i);
+            return i;
+        }
+    }
+    printf("%d was not found in the array.\n", target);
+    return -1;
+}
+
+// ---------- 5. Exponential Search ----------
+// Requires a sorted array. Finds a range where target could be by
+// doubling the index, then binary searches within that range.
+
+int exponential_search(int arr[], int size, int target) {
+    printf("\n--- Exponential Search (target = %d) ---\n", target);
+    print_array(arr, size, -1, -1);
+
+    if (arr[0] == target) {
+        printf("Found %d at position 0!\n", target);
+        return 0;
+    }
+
+    int bound = 1;
+    while (bound < size && arr[bound] <= target) {
+        printf("Doubling bound: checking position %d (value %d):\n", bound, arr[bound]);
+        print_array(arr, size, bound, -1);
+        bound *= 2;
+    }
+
+    int low = bound / 2;
+    int high = (bound < size) ? bound : size - 1;
+    printf("Range identified: [%d..%d]. Running binary search within it:\n", low, high);
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        printf("Search window [%d..%d], checking middle position %d (value %d):\n",
+               low, high, mid, arr[mid]);
+        print_array(arr, size, mid, -1);
+
+        if (arr[mid] == target) {
+            printf("Found %d at position %d!\n", target, mid);
+            return mid;
+        } else if (arr[mid] < target) {
+            printf("  -> %d < target, searching right half\n", arr[mid]);
+            low = mid + 1;
+        } else {
+            printf("  -> %d > target, searching left half\n", arr[mid]);
+            high = mid - 1;
+        }
+    }
+    printf("%d was not found in the array.\n", target);
+    return -1;
+}
+
+// =====================================================
+// =====================  MAIN  ========================
+// =====================================================
 
 int main() {
-     int arr[MAX_SIZE];
-    int size, choice, input_mode;
- 
-    printf("=== Sorting Algorithm Visualizer ===\n");
+    int arr[MAX_SIZE];
+    int size, operation, choice, input_mode;
+
+    printf("=== Sorting & Searching Algorithm Visualizer ===\n");
     printf("Enter number of elements (max %d): ", MAX_SIZE);
     scanf("%d", &size);
- 
+
     if (size < 1 || size > MAX_SIZE) {
         printf("Invalid size.\n");
         return 1;
     }
- 
+
     printf("\n1. Enter elements manually\n");
     printf("2. Generate random elements (you choose min/max range)\n");
     printf("Choose input method: ");
     scanf("%d", &input_mode);
- 
+
     if (input_mode == 1) {
         printf("Enter %d elements:\n", size);
         for (int i = 0; i < size; i++) {
@@ -339,17 +549,17 @@ int main() {
         scanf("%d", &min_val);
         printf("Enter maximum value: ");
         scanf("%d", &max_val);
- 
+
         if (min_val > max_val) {
             printf("Minimum cannot be greater than maximum.\n");
             return 1;
         }
- 
+
         srand((unsigned int) time(NULL));
         for (int i = 0; i < size; i++) {
             arr[i] = min_val + rand() % (max_val - min_val + 1);
         }
- 
+
         printf("Generated array: ");
         print_array(arr, size, -1, -1);
     } else {
@@ -357,27 +567,66 @@ int main() {
         return 1;
     }
 
-    printf("\n1. Bubble Sort\n");
-    printf("2. Insertion Sort\n");
-    printf("3. Selection Sort\n");
-    printf("4. Quick Sort\n");
-    printf("5. Merge Sort\n");
-    printf("6. Heap Sort\n");
-    printf("7. Counting Sort (non-negative integers only)\n");
-    printf("8. Radix Sort (non-negative integers only)\n");
-    printf("Choose an algorithm: ");
-    scanf("%d", &choice);
+    printf("\n=== Choose Operation ===\n");
+    printf("1. Sorting\n");
+    printf("2. Searching\n");
+    printf("Choose an operation: ");
+    scanf("%d", &operation);
 
-    switch (choice) {
-        case 1: bubble_sort(arr, size); break;
-        case 2: insertion_sort(arr, size); break;
-        case 3: selection_sort(arr, size); break;
-        case 4: quick_sort(arr, size); break;
-        case 5: merge_sort(arr, size); break;
-        case 6: heap_sort(arr, size); break;
-        case 7: counting_sort(arr, size); break;
-        case 8: radix_sort(arr, size); break;
-        default: printf("Invalid choice.\n");
+    if (operation == 1) {
+        printf("\n1. Bubble Sort\n");
+        printf("2. Insertion Sort\n");
+        printf("3. Selection Sort\n");
+        printf("4. Quick Sort\n");
+        printf("5. Merge Sort\n");
+        printf("6. Heap Sort\n");
+        printf("7. Counting Sort (non-negative integers only)\n");
+        printf("8. Radix Sort (non-negative integers only)\n");
+        printf("Choose an algorithm: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: bubble_sort(arr, size); break;
+            case 2: insertion_sort(arr, size); break;
+            case 3: selection_sort(arr, size); break;
+            case 4: quick_sort(arr, size); break;
+            case 5: merge_sort(arr, size); break;
+            case 6: heap_sort(arr, size); break;
+            case 7: counting_sort(arr, size); break;
+            case 8: radix_sort(arr, size); break;
+            default: printf("Invalid choice.\n");
+        }
+    } else if (operation == 2) {
+        printf("\n1. Linear Search\n");
+        printf("2. Binary Search (requires sorted array)\n");
+        printf("3. Ternary Search (requires sorted array)\n");
+        printf("4. Jump Search (requires sorted array)\n");
+        printf("5. Exponential Search (requires sorted array)\n");
+        printf("Choose an algorithm: ");
+        scanf("%d", &choice);
+
+        // Algorithms 2-5 need a sorted array; sort quietly first if needed.
+        if (choice >= 2 && choice <= 5 && !is_sorted(arr, size)) {
+            printf("\nArray is not sorted. Sorting it first (required for this search):\n");
+            quiet_sort(arr, size);
+            print_array(arr, size, -1, -1);
+        }
+
+        int target;
+        printf("Enter the value to search for: ");
+        scanf("%d", &target);
+
+        switch (choice) {
+            case 1: linear_search(arr, size, target); break;
+            case 2: binary_search(arr, size, target); break;
+            case 3: ternary_search(arr, size, target); break;
+            case 4: jump_search(arr, size, target); break;
+            case 5: exponential_search(arr, size, target); break;
+            default: printf("Invalid choice.\n");
+        }
+    } else {
+        printf("Invalid operation.\n");
+        return 1;
     }
 
     return 0;
